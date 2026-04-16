@@ -14,7 +14,7 @@ prompt = """Summarize the picture in note format
         to differentiate different section"""
 def note_generate(images):
     response = client.models.generate_content(
-        model = "gemini-3-flash-preview", 
+        model = "gemini-1.5-flash", 
         contents = [images,prompt]
         )
     return (response.text) 
@@ -31,7 +31,7 @@ def audio_generator(text):
 def quiz_generator(image,difficulty):
     prompt = f"Generate only 3 quizes based on the {difficulty} level with 4 options in 4 seperate line and no extra description.Make sure to add markdown to differentiate different section with answers at last."
     response = client.models.generate_content(
-        model = "gemini-3-flash-preview", 
+        model = "gemini-1.5-flash", 
         contents = [image,prompt]
         )
     return (response.text) 
