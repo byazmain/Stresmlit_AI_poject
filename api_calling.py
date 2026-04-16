@@ -29,7 +29,7 @@ def audio_generator(text):
     return audio_buffer
 
 def quiz_generator(image,difficulty):
-    prompt =f"Generate only 3 quizes based on the {difficulty} level with 4 options in 4 seperate line and no extra description.Make sure to add markdown to differentiate different section.Add answer at last of the quizes."
+    prompt = f"Generate only 3 quizes based on the {difficulty} level with 4 options in 4 seperate line and no extra description.Make sure to add markdown to differentiate different section with answers at last."
     response = client.models.generate_content(
         model = "gemini-3-flash-preview", 
         contents = [image,prompt]
