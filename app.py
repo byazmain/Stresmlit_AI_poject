@@ -42,11 +42,8 @@ if pressed:
     if images and level :
         with st.container(border=2):
             st.subheader("Your Note")
-            pil_image = []
-            for img in images:
-                pil_image.append(Image.open(img))
             with st.spinner("AI is writting for you..."):
-                generated_notes = note_generate(pil_image)
+                generated_notes = note_generate(images)
                 st.write(generated_notes)
             st.subheader("Audio Transcription")
             with st.spinner("AI is transcribing for you..."):
@@ -56,10 +53,9 @@ if pressed:
         with st.container(border=2):
             with  st.spinner("AI is thinking..."):
                 st.subheader(f"Quiz ({level}) Difficulty")
-                quizes = quiz_generator(pil_image,level)
+                quizes = quiz_generator(images,level)
                 st.write(quizes)
 
-        
 
 
 
