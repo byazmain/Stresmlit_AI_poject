@@ -3,19 +3,24 @@ import os,io
 from dotenv import load_dotenv
 from google import genai
 from gtts import gTTS
+from PIL import Image
 
 
 load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
+api_key = os.getenv("GEMINI_API_KEY25")
 client = genai.Client(api_key=api_key)
 
-prompt = """Summarize the picture in note format 
+
+def note_generate(images):
+    prompt = """Summarize the picture in note format 
         at max 100 words ,make sure to add necessary markdown 
         to differentiate different section"""
-def note_generate(images):
+    pil_img = []
+    for img in images:
+        pil_img.append(Image.open(img))
     response = client.models.generate_content(
-        model = "gemini-3-flash-preview", 
-        contents = [images,prompt]
+        model = "gemini-flash-lite-latest", 
+        contents = [pil_img,prompt]
         )
     return (response.text) 
 
@@ -30,8 +35,11 @@ def audio_generator(text):
 
 def quiz_generator(image,difficulty):
     prompt = f"Generate only 3 quizes based on the {difficulty} level with 4 options in 4 seperate line and no extra description.Make sure to add markdown to differentiate different section with answers at last."
+    pil_img = []
+    for img in image:
+        pil_img.append(Image.open(img))
     response = client.models.generate_content(
-        model = "gemini-3-flash-preview", 
-        contents = [image,prompt]
+        model = "gemini-flash-lite-latest", 
+        contents = [pil_img,prompt]
         )
     return (response.text) 
